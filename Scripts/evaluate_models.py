@@ -1,19 +1,17 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
 
-# Step 4: Define model paths
+
 model_paths = {
     "10%_from_scratch": "/checkpoint-100915",
     "30%_from_scratch": "/checkpoint-302750",
     "pretrained_model": "/checkpoint-201830"
 }
 
-# Step 5: Define a function to calculate perplexity
-def calculate_perplexity(model, tokenizer, text):
-    # Tokenize the input text
-    input_ids = tokenizer.encode(text, return_tensors="pt")
 
-    # Move to GPU if available
+def calculate_perplexity(model, tokenizer, text):
+
+    input_ids = tokenizer.encode(text, return_tensors="pt")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     input_ids = input_ids.to(device)
     model.to(device)
@@ -26,7 +24,7 @@ def calculate_perplexity(model, tokenizer, text):
 
     return perplexity
 
-# Step 6: Evaluate each model
+# Evaluate each model
 input_text = "The cat was found under the bed"  # Replace with your input text
 
 for model_name, model_path in model_paths.items():
