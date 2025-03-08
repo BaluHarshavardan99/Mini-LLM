@@ -7,7 +7,7 @@ print(f"Using device: {device}")
 
 # Step 1: Load and preprocess Wikipedia dataset
 def load_and_preprocess_data():
-    dataset = load_dataset("wikipedia", "20220301.en", split="train[:30%]", trust_remote_code=True)  # Adjust subset size as needed
+    dataset = load_dataset("wikipedia", "20220301.en", split="train[:30%]", trust_remote_code=True) 
     print(f"Loaded dataset with {len(dataset)} samples.")
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
@@ -16,7 +16,7 @@ def load_and_preprocess_data():
     # Tokenize the dataset
     def tokenize_function(examples):
         tokenized_output = tokenizer(examples["text"], truncation=True, padding="max_length", max_length=512)
-        tokenized_output["labels"] = tokenized_output["input_ids"].copy()  # Labels for causal LM
+        tokenized_output["labels"] = tokenized_output["input_ids"].copy()  
         return tokenized_output
 
     tokenized_dataset = dataset.map(tokenize_function, batched=True, remove_columns=["text"])
