@@ -1,10 +1,3 @@
-Here’s a concise and clear **README.md** content focused on accessing the checkpoints and running the models as code. This version is streamlined for users who want to quickly get started with your models.
-
----
-
-### **README.md**
-
-```markdown
 # GPT-2 Models for Text Generation
 
 This repository contains three GPT-2 models trained on Wikipedia data:
@@ -38,9 +31,9 @@ python -m nltk.downloader punkt
 
 The model checkpoints are hosted on Google Drive due to their size. Download them using the links below:
 
-- [Minimal GPT-2 (10% Data)](https://drive.google.com/your-link-here)
-- [Minimal GPT-2 (30% Data)](https://drive.google.com/your-link-here)
-- [Pre-trained GPT-2](https://drive.google.com/your-link-here)
+- [Minimal GPT-2 (10% Data)](https://drive.google.com/drive/folders/1JsO7F_5H_J4TUsoQ4O5Mtn5qx3KqYDHx?usp=sharing)
+- [Minimal GPT-2 (30% Data)](https://drive.google.com/drive/folders/1h5sA0_Xh3Jxx4iNymlZ6LxoAV_VVtBzR?usp=sharing)
+- [Pre-trained GPT-2](https://drive.google.com/drive/folders/1jvwkzk4H3tCzTdBuiparG2qZzsnp2pdL?usp=sharing)
 
 After downloading, extract the checkpoints into a folder named `checkpoints/` in the root of the repository. The folder structure should look like this:
 ```
