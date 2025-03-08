@@ -70,14 +70,15 @@ print(generated_text)
 
 ### **4. Evaluate the Models**
 
-To evaluate all three models and generate text for a set of prompts, run the `evaluate_models.py` script:
+To evaluate all three models run the `evaluate_models.py` script and to generate text for a set of prompts run the inference.py:
 
 ```bash
 cd scripts
 python evaluate_models.py
+python inference.py
 ```
 
-This script will:
+These scripts will:
 - Load the checkpoints for all three models.
 - Calculate perplexity for each model.
 - Generate text for a set of predefined prompts.
@@ -90,33 +91,23 @@ If you want to retrain the models, use the following scripts:
 
 #### **Minimal GPT-2 (10% Data)**
 ```bash
-python train_minimal_gpt2.py --data_percent 10
+python gpt2_from-scratch_10%.py
 ```
 
 #### **Minimal GPT-2 (30% Data)**
 ```bash
-python train_minimal_gpt2.py --data_percent 30
+python gpt2_from-scratch_30%.py 
 ```
 
 #### **Pre-trained GPT-2**
 ```bash
-python train_pretrained_gpt2.py
+python pre-trained_gpt2.py
 ```
 
 ---
 
 ## **Repository Structure**
 
-```
-gpt2-wikipedia/
-├── checkpoints/                # Folder for model checkpoints (download from Google Drive)
-├── scripts/
-│   ├── train_minimal_gpt2.py   # Script to train Minimal GPT-2 from scratch
-│   ├── train_pretrained_gpt2.py # Script to fine-tune Pre-trained GPT-2
-│   └── evaluate_models.py      # Script to evaluate the models
-├── requirements.txt            # List of dependencies
-└── README.md                   # This file
-```
 
 ---
 
@@ -125,27 +116,8 @@ gpt2-wikipedia/
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 ```
 
----
 
-### **Key Features of the README**
-1. **Clear Instructions**: Step-by-step guidance for downloading checkpoints, installing dependencies, and running the models.
-2. **Code Examples**: Ready-to-use code snippets for loading checkpoints and generating text.
-3. **Script Usage**: Instructions for evaluating and training the models using the provided scripts.
-4. **Google Drive Integration**: Links to download large checkpoints hosted on Google Drive.
 
----
 
-### **requirements.txt**
 
-```plaintext
-torch>=1.10.0
-transformers>=4.18.0
-datasets>=2.0.0
-nltk>=3.7
-numpy>=1.21.0
-evaluate>=0.3.0
-```
 
----
-
-This README is designed to be user-friendly and provides all the necessary information to quickly get started with your models. Let me know if you need further adjustments!
