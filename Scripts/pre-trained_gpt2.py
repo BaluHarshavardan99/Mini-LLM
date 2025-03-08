@@ -8,16 +8,16 @@ print(f"Using device: {device}")
 
 # Load and preprocess Wikipedia dataset
 def load_and_preprocess_data():
-    dataset = load_dataset("wikipedia", "20220301.en", split="train[:50%]", trust_remote_code=True)  # Adjust subset size as needed
+    dataset = load_dataset("wikipedia", "20220301.en", split="train[:50%]", trust_remote_code=True)  
     print(f"Loaded dataset with {len(dataset)} samples.")
 
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-    tokenizer.pad_token = tokenizer.eos_token  # Set padding token
+    tokenizer.pad_token = tokenizer.eos_token  
 
     # Tokenize the dataset
     def tokenize_function(examples):
         tokenized_output = tokenizer(examples["text"], truncation=True, padding="max_length", max_length=512)
-        tokenized_output["labels"] = tokenized_output["input_ids"].copy()  # Labels for causal LM
+        tokenized_output["labels"] = tokenized_output["input_ids"].copy()  
         return tokenized_output
 
     tokenized_dataset = dataset.map(tokenize_function, batched=True, remove_columns=["text"])
@@ -27,8 +27,7 @@ def load_and_preprocess_data():
 def load_pretrained_gpt2():
     # Load the pre-trained GPT-2 model
     model = GPT2LMHeadModel.from_pretrained("gpt2")
-    model.to(device)  # Move model to GPU
-    return model
+    model.to(device) 
 
 # Fine-tune the model
 def train_model(tokenized_dataset, tokenizer):
@@ -80,29 +79,29 @@ def save_model_architecture(model, output_file="model_architecture.txt"):
     print(f"Model architecture details saved to {output_file}")
 
 # Generate text for multiple prompts and save their outputs
-def generate_and_save_texts(prompts, model, tokenizer, num_texts_per_prompt=3, output_file="generated_texts.txt"):
-    model.to(device)  # Ensure model is on GPU
-    model.eval()  # Set model to evaluation mode
+# def generate_and_save_texts(prompts, model, tokenizer, num_texts_per_prompt=3, output_file="generated_texts.txt"):
+#     model.to(device)  # Ensure model is on GPU
+#     model.eval()  # Set model to evaluation mode
 
-    with open(output_file, "w") as f:
-        for prompt_idx, prompt in enumerate(prompts):
-            f.write(f"Prompt {prompt_idx + 1}: {prompt}\n")
-            print(f"Processing Prompt {prompt_idx + 1}: {prompt}")
+#     with open(output_file, "w") as f:
+#         for prompt_idx, prompt in enumerate(prompts):
+#             f.write(f"Prompt {prompt_idx + 1}: {prompt}\n")
+#             print(f"Processing Prompt {prompt_idx + 1}: {prompt}")
 
-            for text_idx in range(num_texts_per_prompt):
-                inputs = tokenizer(prompt, return_tensors="pt").to(device)
-                outputs = model.generate(
-                    inputs.input_ids,
-                    max_length=100,
-                    num_beams=5,  
-                    no_repeat_ngram_size=2,
-                    early_stopping=True,
-                )
-                generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-                f.write(f"Generated Text {text_idx + 1}:\n{generated_text}\n\n")
-                print(f"Generated Text {text_idx + 1}:\n{generated_text}\n")
+#             for text_idx in range(num_texts_per_prompt):
+#                 inputs = tokenizer(prompt, return_tensors="pt").to(device)
+#                 outputs = model.generate(
+#                     inputs.input_ids,
+#                     max_length=100,
+#                     num_beams=5,  
+#                     no_repeat_ngram_size=2,
+#                     early_stopping=True,
+#                 )
+#                 generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+#                 f.write(f"Generated Text {text_idx + 1}:\n{generated_text}\n\n")
+#                 print(f"Generated Text {text_idx + 1}:\n{generated_text}\n")
 
-            f.write("\n" + "=" * 80 + "\n\n")  
+#             f.write("\n" + "=" * 80 + "\n\n")  
 
 if __name__ == "__main__":
     # Load and preprocess the dataset
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     train_model(tokenized_dataset, tokenizer)
 
     # Load the fine-tuned model
-    model = GPT2LMHeadModel.from_pretrained("./fine-tuned-gpt2-wikipedia").to(device)  # Move model to GPU
+    model = GPT2LMHeadModel.from_pretrained("./fine-tuned-gpt2-wikipedia").to(device)  
     tokenizer = GPT2Tokenizer.from_pretrained("./fine-tuned-gpt2-wikipedia")
 
     # Save the model architecture details
