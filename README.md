@@ -104,10 +104,6 @@ python gpt2_from-scratch_30%.py
 python pre-trained_gpt2.py
 ```
 
----
-
-## **Repository Structure**
-
 
 ---
 
