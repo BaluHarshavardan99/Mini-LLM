@@ -59,7 +59,7 @@ tokenizer = GPT2Tokenizer.from_pretrained("checkpoints/minimal_gpt2_10")
 # Generate text
 prompt = "The history of the Roman Empire"
 input_ids = tokenizer.encode(prompt, return_tensors="pt")
-output = model.generate(input_ids, max_length=50, num_beams=5, no_repeat_ngram_size=2, early_stopping=True)
+output = model.generate(input_ids, max_length=200, num_beams=5, no_repeat_ngram_size=2, early_stopping=True)
 
 # Decode and print the generated text
 generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
@@ -70,7 +70,7 @@ print(generated_text)
 
 ### **4. Evaluate the Models**
 
-To evaluate all three models run the `evaluate_models.py` script and to generate text for a set of prompts run the inference.py:
+To evaluate all three models run the `evaluate_models.py` script and to generate text for a set of prompts run the `inference.py`:
 
 ```bash
 cd scripts
