@@ -9,15 +9,14 @@ model_paths = {
 }
 
 def load_model_and_tokenizer(checkpoint_path):
-    """Load the fine-tuned GPT-2 model and tokenizer from the checkpoint."""
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = GPT2LMHeadModel.from_pretrained(checkpoint_path).to(device)
     tokenizer = GPT2Tokenizer.from_pretrained(checkpoint_path)
     return model, tokenizer, device
 
 def generate_texts(prompts, model, tokenizer, device, num_texts_per_prompt=3, output_file="generated_texts.txt"):
-    """Generate and save texts for given prompts."""
-    model.eval()  # Set model to evaluation mode
+    model.eval()  
     
     with open(output_file, "w") as f:
         for prompt_idx, prompt in enumerate(prompts):
@@ -29,7 +28,7 @@ def generate_texts(prompts, model, tokenizer, device, num_texts_per_prompt=3, ou
                 outputs = model.generate(
                     inputs.input_ids,
                     max_length=300,
-                    num_beams=5,  # Beam search for better coherence
+                    num_beams=5,  
                     no_repeat_ngram_size=2,
                     early_stopping=True,
                 )
@@ -37,10 +36,9 @@ def generate_texts(prompts, model, tokenizer, device, num_texts_per_prompt=3, ou
                 f.write(f"Generated Text {text_idx + 1}:\n{generated_text}\n\n")
                 print(f"Generated Text {text_idx + 1}:\n{generated_text}\n")
 
-            f.write("\n" + "=" * 80 + "\n\n")  # Separator between prompts
+            f.write("\n" + "=" * 80 + "\n\n") 
 
 if __name__ == "__main__":
-    # List of prompts
     prompts = [
         "Describe the key events leading up to the fall of the Roman Empire, including the role of barbarian invasions, economic decline, and political instability.",
         "Explain the significance of the discovery of penicillin by Alexander Fleming and its impact on modern medicine.",
